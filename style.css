@@ -1,0 +1,182 @@
+:root {
+  /* 預設 = 深色(深夜使用為主) */
+  --bg: #0f1226;
+  --bg-soft: #1a1f3d;
+  --text: #f2f4ff;
+  --text-dim: #9aa2c4;
+  --accent: #ff7a9c;
+  --accent-press: #e85c80;
+  --accent-text: #2a0a14;
+  --danger: #ff5a5a;
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* 系統為淺色模式時切換亮色配色 */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #fdf2f5;
+    --bg-soft: #ffffff;
+    --text: #20131a;
+    --text-dim: #8a7480;
+    --accent: #ff5c83;
+    --accent-press: #e84872;
+    --accent-text: #ffffff;
+    --danger: #d83a3a;
+    --border: rgba(0, 0, 0, 0.08);
+    --shadow: 0 10px 30px rgba(214, 120, 150, 0.25);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC",
+    "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  min-height: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: max(16px, env(safe-area-inset-top)) 20px
+    max(16px, env(safe-area-inset-bottom));
+  gap: 18px;
+}
+
+/* 大按鈕:佔上半部大半螢幕 */
+.record-btn {
+  flex: 1 1 auto;
+  min-height: 45vh;
+  width: 100%;
+  border: none;
+  border-radius: 28px;
+  background: var(--accent);
+  color: var(--accent-text);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease;
+  user-select: none;
+}
+
+.record-btn:active,
+.record-btn.is-pressed {
+  transform: scale(0.97);
+  background: var(--accent-press);
+}
+
+.record-btn__label {
+  font-size: clamp(2rem, 9vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.record-btn__hint {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+/* 今日區塊 */
+.today {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.today__count {
+  margin: 0 0 10px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.today__count span {
+  color: var(--accent);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: 28vh;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.list li {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-variant-numeric: tabular-nums;
+}
+
+.list li .time {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.list li .idx {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.list li.is-new {
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-dim);
+  margin: 14px 0;
+  font-size: 0.95rem;
+}
+
+/* 刪除按鈕 */
+.delete-btn {
+  flex: 0 0 auto;
+  align-self: center;
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 22px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delete-btn:active {
+  background: var(--bg-soft);
+}

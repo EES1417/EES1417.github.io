@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <title>胎動記錄</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0f1226" />
+
+  <!-- iOS 加到主畫面 -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="胎動記錄" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <button id="recordBtn" class="record-btn" type="button" aria-label="記錄胎動">
+      <span class="record-btn__label">記錄胎動</span>
+      <span class="record-btn__hint">點一下記下現在時間</span>
+    </button>
+
+    <section class="today">
+      <h1 class="today__count">今天 <span id="count">0</span> 次</h1>
+      <ul id="list" class="list" aria-live="polite"></ul>
+      <p id="empty" class="empty">今天還沒有紀錄</p>
+    </section>
+
+    <button id="deleteBtn" class="delete-btn" type="button" hidden>刪除最後一筆</button>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
