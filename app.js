@@ -4,6 +4,12 @@
 
   var STORAGE_KEY = "kicks";
 
+  /* 推播設定:太太每次記錄時,會送一則通知到這個私密頻道。
+     先生在 ntfy App 訂閱「完全相同」的頻道名即可收到通知。
+     ⚠ 此頻道名等同密碼,知道的人都能收發,請勿外流。要更換時改這裡的字串並重新訂閱。
+     若想暫時關閉通知,把它設成空字串 "" 即可。 */
+  var NTFY_TOPIC = "taidong-24aactnm26oo6ak1-kicks";
+
   var recordBtn = document.getElementById("recordBtn");
   var deleteBtn = document.getElementById("deleteBtn");
   var listEl = document.getElementById("list");
@@ -91,6 +97,18 @@
     });
   }
 
+  /* ---- 推播通知(加分項,失敗一律靜默,不影響本機記錄) ---- */
+  function notify(timeStr) {
+    if (!NTFY_TOPIC) return;
+    try {
+      fetch("https://ntfy.sh/" + NTFY_TOPIC, {
+        method: "POST",
+        body: "胎動 " + timeStr, // 中文放 body(UTF-8 OK)
+        headers: { Tags: "baby" } // 顯示 👶;header 值需為 ASCII
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   /* ---- 動作 ---- */
   function addRecord() {
     var arr = load();
@@ -106,6 +124,7 @@
     }, 120);
 
     render(true);
+    notify(formatTime(arr[arr.length - 1]));
   }
 
   function deleteLast() {
